@@ -1,0 +1,64 @@
+// offers a rewards program to customers, awarding points based on each recorded purchase. 
+ 
+
+function calRewards(price) {
+    if (price >=50 && price < 100) {
+        return price-50;
+    } else if (price >100){
+        return (2*(price-100) + 50);
+    }
+    return 0;
+}
+
+class Transaction {
+    constructor(price) {
+        this.price = price;
+        this.rewards = calRewards(price);
+        this.tranDate = new Date();
+    }
+}
+
+class TransactionList {
+    constructor() {
+        this.list = [];
+    }
+
+    getLast3MonthsList() {
+        var today = new Date();
+        const threeOldDate = today.setMonth(today.getMonth() - 3);
+        let filteredList = this.list.filter(trans => trans.tranDate > threeOldDate);
+        return filteredList.sort((a,b) => b.transactionDate - a.tranDate);
+    }
+
+    getAllTransactions() {
+        return this.list.sort((a,b) => b.tranDate-a.tranDate);
+    }
+
+    addTransaction(price) {
+        const transaction = new Transaction(price);
+        this.list.push(transaction);
+    }
+
+
+    getTotalRewards() {
+        return this.list.length ? this.list.reduce((acc,key)=>key.rewards+acc, 0) : 0;
+    }
+
+
+    rewardPerMonth() {
+        let last3MonthRewardsInDesc = [];
+        for(let i=0; i<3; i++) {
+            let filteredList = this.list.filter(trans => trans.transactionDate.getMonth() == (new Date).getMonth() - i );
+            last3MonthRewardsInDesc[i] = filteredList.reduce((acc,key)=>key.rewards+acc,0);
+        }
+        return last3MonthRewardsInDesc;
+    }
+}
+
+let myTransactionList = new TransactionList();
+myTransactionList.addTransaction(14);
+myTransactionList.addTransaction(540);
+myTransactionList.addTransaction(2000);
+myTransactionList.addTransaction(250);
+myTransactionList.addTransaction(3600);
+let arr = myTransactionList.getAllTransactions();
