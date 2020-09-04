@@ -23,6 +23,7 @@ class TransactionList {
         this.list = [];
     }
 
+
     getLast3MonthsList() {
         var today = new Date();
         const threeOldDate = today.setMonth(today.getMonth() - 3);
@@ -55,10 +56,10 @@ class TransactionList {
     }
 }
 
-let myTransactionList = new TransactionList();
-myTransactionList.addTransaction(14);
-myTransactionList.addTransaction(540);
-myTransactionList.addTransaction(2000);
-myTransactionList.addTransaction(250);
-myTransactionList.addTransaction(3600);
-let arr = myTransactionList.getAllTransactions();
+let TransactionList = new TransactionList();
+TransactionList.addTransaction(14);
+TransactionList.addTransaction(540);
+TransactionList.addTransaction(2000);
+TransactionList.addTransaction(250);
+TransactionList.addTransaction(3600);
+let arr = TransactionList.getAllTransactions();
